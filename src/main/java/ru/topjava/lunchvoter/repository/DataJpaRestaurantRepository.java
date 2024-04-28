@@ -22,7 +22,8 @@ public class DataJpaRestaurantRepository {
         return crudRestaurantRepository.findById(id).orElse(null);
     }
     
-    public List<Restaurant> getAll(int id) {
-        return crudRestaurantRepository.findAll();
+    public List<Restaurant> getAll() {
+        logger.info("Get all restaurants");
+        return crudRestaurantRepository.findByOrderById();
     }
 }
