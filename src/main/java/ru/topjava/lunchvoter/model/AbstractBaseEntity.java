@@ -8,8 +8,11 @@ import java.util.Objects;
 @MappedSuperclass
 @Access(AccessType.FIELD)
 public class AbstractBaseEntity {
+    public static final int START_SEQ = 100;
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "global_seq")
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
     protected Integer id;
     
     protected AbstractBaseEntity() {
@@ -17,6 +20,14 @@ public class AbstractBaseEntity {
     
     protected AbstractBaseEntity(Integer id) {
         this.id = id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    public Integer getId() {
+        return id;
     }
     
     @Override

@@ -23,7 +23,7 @@ VALUES (3, 350, 'Тёщин борщ с сальцом', 1);
 INSERT INTO PUBLIC.RESTAURANT (ID, NAME)
 VALUES (2, 'Мама Италия');
 INSERT INTO PUBLIC.DISH (id, price, NAME, RESTAURANT_ID)
-VALUES (51, 100, 'Салат помидорный', 2);
+VALUES (51, 100, 'Греческий салат', 2);
 INSERT INTO PUBLIC.DISH (id, price, NAME, RESTAURANT_ID)
 VALUES (52, 200, 'Салат с говядиной', 2);
 INSERT INTO PUBLIC.DISH (id, price, NAME, RESTAURANT_ID)

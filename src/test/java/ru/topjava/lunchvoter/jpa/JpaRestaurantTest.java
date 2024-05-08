@@ -20,7 +20,7 @@ import static ru.topjava.lunchvoter.RestaurantTestData.RESTAURANT_MAMA_ITALIA;
 //TODO сделать профили для тестов и для прода, чтобы можно было запускать разные скрипты с начальными данными м.б. использовать параметр для запуска скрипта после теста
 //TODO выводить ожидаемые и фактические данные в консоль
 @Sql(scripts = "classpath:test-data/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class JpaRestaurant {
+public class JpaRestaurantTest {
     @Autowired
     private DataJpaRestaurantRepository dataJpaRestaurantRepository;
     

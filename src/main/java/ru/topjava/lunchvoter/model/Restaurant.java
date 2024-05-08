@@ -1,15 +1,13 @@
 package ru.topjava.lunchvoter.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "restaurant")
 public class Restaurant extends AbstractNamedBaseEntity {
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Dish> dishes;
     
     public Restaurant(Integer id, String name) {

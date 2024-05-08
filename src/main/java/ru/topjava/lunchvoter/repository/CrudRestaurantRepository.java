@@ -6,7 +6,10 @@ import ru.topjava.lunchvoter.model.Restaurant;
 
 import java.util.List;
 
-@Transactional
+@Transactional(readOnly = true)
 public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Integer> {
+    
     List<Restaurant> findByOrderById();
+    
+    void deleteById(Integer id);
 }

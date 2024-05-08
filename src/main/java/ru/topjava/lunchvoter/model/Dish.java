@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
-@Table(name = "dish")
+@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "restaurant_id"}, name = "dish_name_restaurant_unique_idx")})
 public class Dish extends AbstractNamedBaseEntity {
     @Column(name = "price", nullable = false)
     @NotNull
@@ -21,5 +21,11 @@ public class Dish extends AbstractNamedBaseEntity {
     
     public Dish() {
         super();
+    }
+    
+    public Dish(Integer id, String name, Float price, Restaurant restaurant) {
+        super(id, name);
+        this.price = price;
+        this.restaurant = restaurant;
     }
 }
