@@ -18,4 +18,11 @@ public class AbstractNamedBaseEntity extends AbstractBaseEntity {
     protected AbstractNamedBaseEntity() {
         super();
     }
+    
+    @Override
+    public String toString() {
+        return
+                "id=" + id +
+                        ", name='" + name + '\'';
+    }
 }

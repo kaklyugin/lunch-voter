@@ -18,12 +18,17 @@ public class DataJpaRestaurantRepository {
     }
     
     public Restaurant get(int id) {
-        logger.info("Get restaurant by id = " + id);
+        logger.info(String.format("Get restaurant by id=%s", id));
         return crudRestaurantRepository.findById(id).orElse(null);
     }
     
     public List<Restaurant> getAll() {
         logger.info("Get all restaurants");
         return crudRestaurantRepository.findByOrderById();
+    }
+    
+    public Restaurant save(Restaurant restaurant) {
+        logger.info(String.format("Save restaurant=%s", restaurant));
+        return crudRestaurantRepository.save(restaurant);
     }
 }
