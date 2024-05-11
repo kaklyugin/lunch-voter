@@ -18,4 +18,10 @@ public class Restaurant extends AbstractNamedBaseEntity {
         super();
     }
     
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                ", id=" + id +
+                '}';
+    }
 }

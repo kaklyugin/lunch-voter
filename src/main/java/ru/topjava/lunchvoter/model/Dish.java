@@ -17,7 +17,7 @@ public class Dish extends AbstractNamedBaseEntity {
     private Restaurant restaurant;
     
     @ManyToMany(mappedBy = "dishes")
-    public Set<LunchMenu> lunchMenu;
+    public Set<Menu> menu;
     
     public Dish() {
         super();

@@ -23,22 +23,22 @@ public class JpaDishTest {
     @Test
     void save() {
         Dish newDish = getNewDishForGinza();
-        Dish created = dataJpaDishRepository.save(newDish);
+        Dish created = dataJpaDishRepository.save(getNewDishForGinza());
         newDish.setId(created.getId());
         assertThat(newDish).isEqualTo(created);
     }
     
     @Test
-    void saveTwoIdenticalDishesException() {
+    void failToSaveTwoIdenticalDishes() {
         Dish newDish = getNewDishForGinza();
         Dish created = dataJpaDishRepository.save(newDish);
         assertNotNull(created.getId());
         assertThrows(Exception.class, () -> dataJpaDishRepository.save(getNewDishForGinza()));
     }
+    
     @Test
     void saveTwoSameDishesWithDifferentPrice() {
-        Dish newDish = getNewDishForGinza();
-        Dish created = dataJpaDishRepository.save(newDish);
+        Dish created = dataJpaDishRepository.save(getNewDishForGinza());
         assertNotNull(created.getId());
         Dish newDishWithDifferentPrice = getNewDishForGinzaWithDifferentPrice();
         Dish createdDishWithDifferentPrice = dataJpaDishRepository.save(newDishWithDifferentPrice);

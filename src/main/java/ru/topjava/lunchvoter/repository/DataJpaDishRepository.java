@@ -10,14 +10,14 @@ import ru.topjava.lunchvoter.model.Dish;
 public class DataJpaDishRepository {
     Logger logger = LoggerFactory.getLogger(DataJpaDishRepository.class);
     
-    private final CrudDishes crudDishes;
+    private final CrudDishRepository crudDishRepository;
     
-    public DataJpaDishRepository(CrudDishes crudDishes) {
-        this.crudDishes = crudDishes;
+    public DataJpaDishRepository(CrudDishRepository crudDishRepository) {
+        this.crudDishRepository = crudDishRepository;
     }
     
     @Transactional
     public Dish save(Dish dish) {
-        return crudDishes.save(dish);
+        return crudDishRepository.save(dish);
     }
 }

@@ -47,6 +47,10 @@ public class AbstractBaseEntity {
         return this.id != null && Objects.equals(this.id, abstractBaseEntity.id);
     }
     
+    public boolean isNew() {
+        return this.id == null;
+    }
+    
     @Override
     public final int hashCode() {
         return this instanceof HibernateProxy
