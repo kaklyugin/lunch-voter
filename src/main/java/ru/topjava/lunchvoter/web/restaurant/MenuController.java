@@ -20,4 +20,10 @@ public class MenuController {
     public Menu get(@PathVariable Integer restaurantId, @RequestParam LocalDate date) {
         return dataJpaMenuRepository.getByRestaurantAndDate(restaurantId, date);
     }
+    
+    @PostMapping(value = "/{restaurantId}/menus", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Menu save(@PathVariable Integer restaurantId, @RequestBody Menu menu) {
+        return dataJpaMenuRepository.save(menu, restaurantId);
+    }
+    
 }

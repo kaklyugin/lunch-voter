@@ -27,7 +27,7 @@ public class JpaMenuTest {
     
     @Test
     void save() {
-        Menu created = dataJpaLunchMenuRepository.save(createNewGinzaMenuNewDay());
+        Menu created = dataJpaLunchMenuRepository.save(createNewGinzaMenuNewDay(), RESTAURANT_GINZA_ID);
         Menu newLunchMenu = createNewGinzaMenuNewDay();
         newLunchMenu.setId(created.getId());
         assertThat(newLunchMenu).isEqualTo(created);
@@ -35,8 +35,8 @@ public class JpaMenuTest {
     
     @Test
     void failToSaveTwoMenusOfOneRestaurantAtSame() {
-        dataJpaLunchMenuRepository.save(createNewGinzaMenuNewDay());
-        assertThrows(Exception.class, () -> dataJpaLunchMenuRepository.save(createNewGinzaMenuNewDay()));
+        dataJpaLunchMenuRepository.save(createNewGinzaMenuNewDay(), RESTAURANT_GINZA_ID);
+        assertThrows(Exception.class, () -> dataJpaLunchMenuRepository.save(createNewGinzaMenuNewDay(), RESTAURANT_GINZA_ID));
     }
     
     @Test

@@ -1,5 +1,7 @@
 package ru.topjava.lunchvoter.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -8,6 +10,9 @@ import java.util.Objects;
 @MappedSuperclass
 @Access(AccessType.FIELD)
 //@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class AbstractBaseEntity {
     public static final int START_SEQ = 100;
     
