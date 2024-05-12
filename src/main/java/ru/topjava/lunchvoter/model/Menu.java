@@ -1,5 +1,7 @@
 package ru.topjava.lunchvoter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -14,6 +16,7 @@ public class Menu extends AbstractBaseEntity {
     
     @ManyToOne
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonBackReference
     private Restaurant restaurant;
     
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
@@ -22,7 +25,7 @@ public class Menu extends AbstractBaseEntity {
             uniqueConstraints = {@UniqueConstraint(columnNames = {"menu_id", "dish_id"}, name = "menu_dish_unique_idx")},
             joinColumns = @JoinColumn(name = "menu_id"),
             inverseJoinColumns = @JoinColumn(name = "dish_id"))
-    
+    @JsonManagedReference
     private Set<Dish> dishes = new HashSet<>();
     
     public void addDish(Dish dish) {

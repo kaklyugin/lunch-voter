@@ -6,7 +6,7 @@ import ru.topjava.lunchvoter.model.Restaurant;
 import ru.topjava.lunchvoter.repository.DataJpaRestaurantRepository;
 
 @RestController
-@RequestMapping(value = "/admin/restaurant", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/admin/restaurants", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
     private final DataJpaRestaurantRepository dataJpaRestaurantRepository;
     
@@ -19,7 +19,7 @@ public class RestaurantController {
         return dataJpaRestaurantRepository.get(id);
     }
     
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Restaurant save(@RequestBody Restaurant restaurant) {
         return dataJpaRestaurantRepository.save(restaurant);
     }

@@ -1,5 +1,6 @@
 package ru.topjava.lunchvoter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,9 +15,11 @@ public class Dish extends AbstractNamedBaseEntity {
     
     @ManyToOne
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonBackReference
     private Restaurant restaurant;
     
     @ManyToMany(mappedBy = "dishes")
+    @JsonBackReference
     public Set<Menu> menu;
     
     public Dish() {
