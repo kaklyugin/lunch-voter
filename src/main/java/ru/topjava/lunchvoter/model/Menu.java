@@ -1,6 +1,8 @@
 package ru.topjava.lunchvoter.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -9,6 +11,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "restaurant_id"}, name = "menu_unique_date_restaurant_idx")})
+@JsonIdentityInfo(
+        scope = Menu.class,
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Menu extends AbstractBaseEntity {
     @Column(name = "date", nullable = false)
     private LocalDate date;

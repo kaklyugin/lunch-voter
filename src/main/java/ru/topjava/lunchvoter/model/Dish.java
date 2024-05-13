@@ -1,13 +1,19 @@
 package ru.topjava.lunchvoter.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Set;
 
 @Entity
-@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"name","price","restaurant_id"}, name = "dish_unique_name_price_restaurant_idx")})
+@Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "price", "restaurant_id"}, name = "dish_unique_name_price_restaurant_idx")})
+@JsonIdentityInfo(
+        scope = Dish.class,
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Dish extends AbstractNamedBaseEntity {
     @Column(name = "price", nullable = false)
     @NotNull

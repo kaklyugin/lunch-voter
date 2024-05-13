@@ -35,11 +35,12 @@ public class DataJpaMenuRepository {
             logger.warn(String.format("Failed to save menu=%s. Could not find restaurant with id=%s", menu, restaurantId));
             return null;
         }
-        //This fixes isse with detached dishes when POST nem menu with dish ids
+        // This code fixes issue with detached dishes when POST nem menu with dish ids
         List<Integer> dishIds = menu.getDishes().stream().map(d -> d.getId()).collect(Collectors.toList());
         List<Dish> dishes = crudDishRepository.findAllById(dishIds);
         menu.clearDishes();
         dishes.forEach(d -> menu.addDish(d));
+        //
         menu.setRestaurant(restaurant);
         return crudMenuRepository.save(menu);
     }
