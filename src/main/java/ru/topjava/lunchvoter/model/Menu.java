@@ -13,13 +13,13 @@ public class Menu extends AbstractBaseEntity {
     @Column(name = "date", nullable = false)
     private LocalDate date;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "restaurant_id", nullable = false)
-    @JsonIgnore
     //@JsonBackReference (value = "menu-restaurant")
     private Restaurant restaurant;
     
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToMany
     @JoinTable(
             name = "menu_dish",
             uniqueConstraints = {@UniqueConstraint(columnNames = {"menu_id", "dish_id"}, name = "menu_dish_unique_idx")},
@@ -29,6 +29,14 @@ public class Menu extends AbstractBaseEntity {
     
     public void addDish(Dish dish) {
         this.dishes.add(dish);
+    }
+    
+    public void clearDishes() {
+        this.dishes.clear();
+    }
+    
+    public Set<Dish> getDishes() {
+        return dishes;
     }
     
     public Menu() {

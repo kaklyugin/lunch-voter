@@ -11,6 +11,7 @@ import ru.topjava.lunchvoter.model.Restaurant;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class DataJpaMenuRepository {
@@ -18,10 +19,12 @@ public class DataJpaMenuRepository {
     
     private final CrudMenuRepository crudMenuRepository;
     private final CrudRestaurantRepository crudRestaurantRepository;
+    private final CrudDishRepository crudDishRepository;
     
-    public DataJpaMenuRepository(CrudMenuRepository crudMenuRepository, CrudRestaurantRepository crudRestaurantRepository) {
+    public DataJpaMenuRepository(CrudMenuRepository crudMenuRepository, CrudRestaurantRepository crudRestaurantRepository, CrudDishRepository crudDishRepository) {
         this.crudMenuRepository = crudMenuRepository;
         this.crudRestaurantRepository = crudRestaurantRepository;
+        this.crudDishRepository = crudDishRepository;
     }
     
     @Transactional
@@ -32,8 +35,18 @@ public class DataJpaMenuRepository {
             logger.warn(String.format("Failed to save menu=%s. Could not find restaurant with id=%s", menu, restaurantId));
             return null;
         }
+        //This fixes isse with detached dishes when POST nem menu with dish ids
+        List<Integer> dishIds = menu.getDishes().stream().map(d -> d.getId()).collect(Collectors.toList());
+        List<Dish> dishes = crudDishRepository.findAllById(dishIds);
+        menu.clearDishes();
+        dishes.forEach(d -> menu.addDish(d));
         menu.setRestaurant(restaurant);
         return crudMenuRepository.save(menu);
+    }
+    
+    public Menu getById(Integer id) {
+        logger.info(String.format("Get menu by id=%s", id));
+        return crudMenuRepository.getById(id);
     }
     
     public Menu getByRestaurantAndDate(Integer restaurantId, LocalDate date) {

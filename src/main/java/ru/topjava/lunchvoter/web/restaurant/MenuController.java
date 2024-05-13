@@ -8,7 +8,7 @@ import ru.topjava.lunchvoter.repository.DataJpaMenuRepository;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping(value = "/admin/restaurants", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/admin", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MenuController {
     private final DataJpaMenuRepository dataJpaMenuRepository;
     
@@ -16,12 +16,17 @@ public class MenuController {
         this.dataJpaMenuRepository = dataJpaMenuRepository;
     }
     
-    @GetMapping("/{restaurantId}/menus")
+    @GetMapping("/restaurants/{restaurantId}/menus")
     public Menu get(@PathVariable Integer restaurantId, @RequestParam LocalDate date) {
         return dataJpaMenuRepository.getByRestaurantAndDate(restaurantId, date);
     }
     
-    @PostMapping(value = "/{restaurantId}/menus", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/menus/{id}")
+    public Menu get(@PathVariable Integer id) {
+        return dataJpaMenuRepository.getById(id);
+    }
+    
+    @PostMapping(value = "/restaurants/{restaurantId}/menus", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Menu save(@PathVariable Integer restaurantId, @RequestBody Menu menu) {
         return dataJpaMenuRepository.save(menu, restaurantId);
     }

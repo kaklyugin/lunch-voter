@@ -13,14 +13,15 @@ public class Dish extends AbstractNamedBaseEntity {
     @NotNull
     private Float price;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "restaurant_id", nullable = false)
     //@JsonBackReference(value = "dish-restaurant")
     private Restaurant restaurant;
     
-    @ManyToMany(mappedBy = "dishes")
-    //@JsonBackReference
     @JsonIgnore
+    @ManyToMany(mappedBy = "dishes", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    //@JsonBackReference
     public Set<Menu> menu;
     
     public Dish() {
@@ -30,6 +31,10 @@ public class Dish extends AbstractNamedBaseEntity {
     public Dish(Integer id, String name, Float price, Restaurant restaurant) {
         super(id, name);
         this.price = price;
+        this.restaurant = restaurant;
+    }
+    
+    public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
 }
