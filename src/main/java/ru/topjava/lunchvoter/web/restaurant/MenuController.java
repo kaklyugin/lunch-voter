@@ -21,9 +21,9 @@ public class MenuController {
         return dataJpaMenuRepository.getByRestaurantAndDate(restaurantId, date);
     }
     
-    @GetMapping("/menus/{id}")
-    public Menu get(@PathVariable Integer id) {
-        return dataJpaMenuRepository.getById(id);
+    @GetMapping("/restaurants/{restaurantId}/menus/{id}")
+    public Menu get(@PathVariable Integer restaurantId, @PathVariable Integer id) {
+        return dataJpaMenuRepository.getByRestaurantIdAndId(restaurantId, id);
     }
     
     @PostMapping(value = "/restaurants/{restaurantId}/menus", consumes = MediaType.APPLICATION_JSON_VALUE)

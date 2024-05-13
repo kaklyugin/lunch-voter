@@ -45,9 +45,9 @@ public class DataJpaMenuRepository {
         return crudMenuRepository.save(menu);
     }
     
-    public Menu getById(Integer id) {
+    public Menu getByRestaurantIdAndId(Integer restaurantId, Integer id) {
         logger.info(String.format("Get menu by id=%s", id));
-        return crudMenuRepository.getById(id);
+        return crudMenuRepository.getByRestaurantIdAndId(restaurantId, id);
     }
     
     public Menu getByRestaurantAndDate(Integer restaurantId, LocalDate date) {

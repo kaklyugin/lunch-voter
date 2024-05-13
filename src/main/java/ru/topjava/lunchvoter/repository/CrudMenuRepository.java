@@ -16,8 +16,8 @@ import java.util.Optional;
 public interface CrudMenuRepository extends JpaRepository<Menu, Integer> {
     //TODO need to add test for this method
     @EntityGraph(attributePaths = "restaurant", type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT lm FROM Menu lm JOIN FETCH  lm.dishes d WHERE lm.id = :id")
-    Menu getById(@Param("id") Integer id);
+    @Query("SELECT lm FROM Menu lm JOIN FETCH  lm.dishes d WHERE lm.restaurant.id =:restaurantId and lm.id = :id")
+    Menu getByRestaurantIdAndId(@Param("restaurantId") Integer restaurantId, @Param("id") Integer id);
     
     @EntityGraph(attributePaths = "restaurant", type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT lm FROM Menu lm WHERE lm.restaurant.id = :restaurantId AND lm.date = :date")
