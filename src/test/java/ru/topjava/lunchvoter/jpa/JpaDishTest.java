@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.topjava.lunchvoter.DishTestData.getNewDishForGinza;
 import static ru.topjava.lunchvoter.DishTestData.getNewDishForGinzaWithDifferentPrice;
+import static ru.topjava.lunchvoter.RestaurantTestData.RESTAURANT_GINZA_ID;
 
 @SpringBootTest
 @Sql(scripts = "classpath:test-data/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
@@ -23,7 +24,7 @@ public class JpaDishTest {
     @Test
     void save() {
         Dish newDish = getNewDishForGinza();
-        Dish created = dataJpaDishRepository.save(getNewDishForGinza());
+        Dish created = dataJpaDishRepository.save(getNewDishForGinza(), RESTAURANT_GINZA_ID);
         newDish.setId(created.getId());
         assertThat(newDish).isEqualTo(created);
     }
@@ -31,17 +32,17 @@ public class JpaDishTest {
     @Test
     void failToSaveTwoIdenticalDishes() {
         Dish newDish = getNewDishForGinza();
-        Dish created = dataJpaDishRepository.save(newDish);
+        Dish created = dataJpaDishRepository.save(newDish, RESTAURANT_GINZA_ID);
         assertNotNull(created.getId());
-        assertThrows(Exception.class, () -> dataJpaDishRepository.save(getNewDishForGinza()));
+        assertThrows(Exception.class, () -> dataJpaDishRepository.save(getNewDishForGinza(), RESTAURANT_GINZA_ID));
     }
     
     @Test
     void saveTwoSameDishesWithDifferentPrice() {
-        Dish created = dataJpaDishRepository.save(getNewDishForGinza());
+        Dish created = dataJpaDishRepository.save(getNewDishForGinza(), RESTAURANT_GINZA_ID);
         assertNotNull(created.getId());
         Dish newDishWithDifferentPrice = getNewDishForGinzaWithDifferentPrice();
-        Dish createdDishWithDifferentPrice = dataJpaDishRepository.save(newDishWithDifferentPrice);
+        Dish createdDishWithDifferentPrice = dataJpaDishRepository.save(newDishWithDifferentPrice, RESTAURANT_GINZA_ID);
         assertNotNull(createdDishWithDifferentPrice);
     }
 }
