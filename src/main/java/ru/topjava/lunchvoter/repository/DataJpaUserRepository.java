@@ -15,7 +15,7 @@ public class DataJpaUserRepository {
         this.crudUserRepository = crudUserRepository;
     }
     
-    public User get(Integer id) {
+    public User get(Long id) {
         return crudUserRepository.findById(id).orElse(null);
     }
     

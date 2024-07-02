@@ -17,7 +17,7 @@ public class DataJpaRestaurantRepository {
         this.crudRestaurantRepository = crudRestaurantRepository;
     }
     
-    public Restaurant get(int id) {
+    public Restaurant get(Long id) {
         logger.info(String.format("Get restaurant by id=%s", id));
         return crudRestaurantRepository.findById(id).orElse(null);
     }

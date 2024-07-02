@@ -23,11 +23,11 @@ public class VoteService {
         this.menuService = menuService;
     }
     
-    public Vote getActualUserVote(Integer userId) {
+    public Vote getActualUserVote(Long userId) {
         return dataJpaVoteRepository.getByDateAndUserId(DateUtils.getActualMenuDate(), userId);
     }
     
-    public Vote save(@RequestBody VoteTo voteTo, Integer userId) {
+    public Vote save(@RequestBody VoteTo voteTo, Long userId) {
         menuService.checkMenuIsActual(voteTo.getMenuId());
         return dataJpaVoteRepository.save(createVoteForCurrentDate(voteTo), userId);
     }

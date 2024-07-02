@@ -24,7 +24,7 @@ public class DataJpaVoteRepository {
     }
     
     @Transactional
-    public Vote save(Vote vote, Integer userId) {
+    public Vote save(Vote vote, Long userId) {
         logger.info(String.format("Save vote=%s for user id=%s", vote, userId));
         if ((!vote.isNew()) && (get(vote.getId(), userId) == null)) {
             logger.warn(String.format("Failed to update vote=%s for user id=%s. Reason: userId in vote doesn't match userId", vote, userId));
@@ -41,11 +41,11 @@ public class DataJpaVoteRepository {
     }
     
     //TODO check if on service layer other user cannot get other's user vote
-    public Vote getByDateAndUserId(LocalDate date, Integer userId) {
+    public Vote getByDateAndUserId(LocalDate date, Long userId) {
         return crudVoteRepository.getByDateAndUserId(date, userId);
     }
     
-    public Vote get(Integer id, Integer userId) {
+    public Vote get(Long id, Long userId) {
         Optional<Vote> vote = crudVoteRepository.findById(id);
         return vote.filter(v -> v.getUser().getId().equals(userId)).orElse(null);
     }

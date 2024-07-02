@@ -1,9 +1,9 @@
 package ru.topjava.lunchvoter.security;
 
 public class SecurityUtil {
-    private final static Integer USER_ID = 1;
+    private final static Long USER_ID = 1L;
     
-    public static int authUserId() {
+    public static Long authUserId() {
         return USER_ID;
     }
 }

@@ -34,7 +34,7 @@ public class Dish extends AbstractNamedBaseEntity {
         super();
     }
     
-    public Dish(Integer id, String name, Float price, Restaurant restaurant) {
+    public Dish(Long id, String name, Float price, Restaurant restaurant) {
         super(id, name);
         this.price = price;
         this.restaurant = restaurant;

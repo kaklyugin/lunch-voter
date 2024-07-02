@@ -35,12 +35,12 @@ public class MenuService {
         return dataJpaMenuRepository.getByDate(date);
     }
     
-    public Menu save(Menu menu, Integer restaurantId) {
+    public Menu save(Menu menu, Long restaurantId) {
         logger.info(String.format("Save menu menu=%s for restaurant id=%s", menu, restaurantId));
         return dataJpaMenuRepository.save(menu, restaurantId);
     }
     
-    public void checkMenuIsActual(Integer id) {
+    public void checkMenuIsActual(Long id) {
         logger.info(String.format("Check menu is actual by menuId=%s", id));
         if (!getActualIds().contains(id)) {
             throw new IllegalRequestException(String.format("Menu with id %s is not actual", id));

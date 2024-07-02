@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
-public interface CrudMenuRepository extends JpaRepository<Menu, Integer> {
+public interface CrudMenuRepository extends JpaRepository<Menu, Long> {
     
     //TODO need to add test for this method
     @EntityGraph(attributePaths = "restaurant", type = EntityGraph.EntityGraphType.LOAD)
@@ -24,15 +24,15 @@ public interface CrudMenuRepository extends JpaRepository<Menu, Integer> {
     //TODO need to add test for this method
     @EntityGraph(attributePaths = "restaurant", type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT lm FROM Menu lm JOIN FETCH  lm.dishes d WHERE lm.restaurant.id =:restaurantId and lm.id = :id")
-    Menu getByRestaurantIdAndId(@Param("restaurantId") Integer restaurantId, @Param("id") Integer id);
+    Menu getByRestaurantIdAndId(@Param("restaurantId") Long restaurantId, @Param("id") Long id);
     
     @EntityGraph(attributePaths = "restaurant", type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT lm FROM Menu lm WHERE lm.restaurant.id = :restaurantId AND lm.date = :date")
-    Optional<Menu> getByRestaurantIdAndDate(@Param("restaurantId") Integer restaurantId,
+    Optional<Menu> getByRestaurantIdAndDate(@Param("restaurantId") Long restaurantId,
                                             @Param("date") LocalDate date);
     
     @Query("SELECT d FROM Menu lm JOIN lm.dishes d WHERE lm.restaurant.id = :restaurantId AND lm.date = :date ORDER BY d.price DESC")
-    List<Dish> getDishesByRestaurantIdAndDate(@Param("restaurantId") Integer restaurantId,
+    List<Dish> getDishesByRestaurantIdAndDate(@Param("restaurantId") Long restaurantId,
                                               @Param("date") LocalDate date);
     
     @Query("SELECT new ru.topjava.lunchvoter.to.MenuVotingResultsTo" +

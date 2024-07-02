@@ -14,20 +14,20 @@ public class AbstractBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "global_seq")
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
-    protected Integer id;
+    protected Long id;
     
     protected AbstractBaseEntity() {
     }
     
-    protected AbstractBaseEntity(Integer id) {
+    protected AbstractBaseEntity(Long id) {
         this.id = id;
     }
     
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
     

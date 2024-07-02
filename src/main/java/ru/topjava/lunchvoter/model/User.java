@@ -28,7 +28,7 @@ public class User extends AbstractNamedBaseEntity {
         super();
     }
     
-    public User(Integer id, String name, String email, Set<Role> roles) {
+    public User(Long id, String name, String email, Set<Role> roles) {
         super(id, name);
         this.email = email;
         this.roles = roles;

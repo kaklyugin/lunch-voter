@@ -23,7 +23,7 @@ public class DishController {
     
     @PostMapping("{restaurantId}/dishes")
     // TODO implement acceptance of both one element and array https://stackoverflow.com/questions/73732772/requestbody-that-accepts-both-list-and-single-object
-    public List<Dish> saveAll(@PathVariable Integer restaurantId, @RequestBody List<Dish> dishes) {
+    public List<Dish> saveAll(@PathVariable Long restaurantId, @RequestBody List<Dish> dishes) {
         return dataJpaDishRepository.saveAll(dishes, restaurantId);
     }
 }

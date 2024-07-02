@@ -10,7 +10,7 @@ public class AbstractNamedBaseEntity extends AbstractBaseEntity {
     @NotNull
     private String name;
     
-    protected AbstractNamedBaseEntity(Integer id, String name) {
+    protected AbstractNamedBaseEntity(Long id, String name) {
         super(id);
         this.name = name;
     }

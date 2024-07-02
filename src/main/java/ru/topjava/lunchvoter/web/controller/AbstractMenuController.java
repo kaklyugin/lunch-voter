@@ -22,7 +22,7 @@ public abstract class AbstractMenuController {
         return menuService.getByDate(date);
     }
     
-    protected Menu save(@PathVariable Integer restaurantId, @RequestBody Menu menu) {
+    protected Menu save(@PathVariable Long restaurantId, @RequestBody Menu menu) {
         logger.info(String.format("Save menu =%s for restaurant id = %s", restaurantId, menu));
         return menuService.save(menu, restaurantId);
     }

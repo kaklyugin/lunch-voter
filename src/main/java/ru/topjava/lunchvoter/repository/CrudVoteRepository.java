@@ -7,8 +7,8 @@ import ru.topjava.lunchvoter.model.Vote;
 import java.time.LocalDate;
 
 @Transactional(readOnly = true)
-public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
+public interface CrudVoteRepository extends JpaRepository<Vote, Long> {
     
-    Vote getByDateAndUserId(LocalDate date, Integer userId);
+    Vote getByDateAndUserId(LocalDate date, Long userId);
     
 }

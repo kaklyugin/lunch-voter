@@ -20,7 +20,7 @@ public class Restaurant extends AbstractNamedBaseEntity {
     @OneToMany(mappedBy = "restaurant")
     private Set<Dish> dishes;
     
-    public Restaurant(Integer id, String name) {
+    public Restaurant(Long id, String name) {
         super(id, name);
     }
     

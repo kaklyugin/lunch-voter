@@ -24,7 +24,7 @@ public class MenuController extends AbstractMenuController {
     
     @Override
     @PostMapping(value = "/restaurants/{restaurantId}/menus", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Menu save(@PathVariable Integer restaurantId, @RequestBody Menu menu) {
+    public Menu save(@PathVariable Long restaurantId, @RequestBody Menu menu) {
         return super.save(restaurantId, menu);
     }
     

@@ -33,7 +33,7 @@ public class DataJpaDishRepository {
     @Transactional
     //TODO Implement tests. Probably save method must be removed
     //TODO test that dish must not be updated as moved from one restaurant to another. It has to be deleted and inserted as the new one
-    public List<Dish> saveAll(List<Dish> dish, Integer restaurantId) {
+    public List<Dish> saveAll(List<Dish> dish, Long restaurantId) {
         logger.info(String.format("Save dishes=%s", dish.toString()));
         Restaurant restaurant = crudRestaurantRepository.getReferenceById(restaurantId);
         dish.forEach(d -> d.setRestaurant(restaurant));
@@ -41,14 +41,14 @@ public class DataJpaDishRepository {
     }
     
     @Transactional
-    public Dish save(Dish dish, Integer restaurantId) {
+    public Dish save(Dish dish, Long restaurantId) {
         logger.info(String.format("Save dish=%s", dish.toString()));
         Restaurant restaurant = crudRestaurantRepository.getReferenceById(restaurantId);
         dish.setRestaurant(restaurant);
         return crudDishRepository.save(dish);
     }
     
-    public List<Dish> getDishesByRestaurantIdAndDate(@NonNull Integer restaurantId, @NonNull LocalDate date) {
+    public List<Dish> getDishesByRestaurantIdAndDate(@NonNull Long restaurantId, @NonNull LocalDate date) {
         logger.info(String.format("Get dishes by restaurantId=%s and date=%s", restaurantId, date));
         return crudMenuRepository.getDishesByRestaurantIdAndDate(restaurantId, date);
     }

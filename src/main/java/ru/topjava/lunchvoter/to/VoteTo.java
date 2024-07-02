@@ -4,15 +4,15 @@ import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 
 public class VoteTo {
-    private final Integer menuId;
+    private final Long menuId;
     private LocalDate date;
     
     @ConstructorProperties({"id"})
-    public VoteTo(Integer menuId) {
+    public VoteTo(Long menuId) {
         this.menuId = menuId;
     }
     
-    public Integer getMenuId() {
+    public Long getMenuId() {
         return menuId;
     }
     

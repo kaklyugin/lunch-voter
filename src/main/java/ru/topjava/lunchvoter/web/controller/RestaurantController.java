@@ -15,7 +15,7 @@ public class RestaurantController {
     }
     
     @GetMapping("/{id}")
-    public Restaurant get(@PathVariable Integer id) {
+    public Restaurant get(@PathVariable Long id) {
         return dataJpaRestaurantRepository.get(id);
     }
     

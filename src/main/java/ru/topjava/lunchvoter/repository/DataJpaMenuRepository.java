@@ -28,7 +28,7 @@ public class DataJpaMenuRepository {
     }
     
     @Transactional
-    public Menu save(Menu menu, Integer restaurantId) {
+    public Menu save(Menu menu, Long restaurantId) {
         logger.info(String.format("Save menu=%s", menu.toString()));
         Restaurant restaurant = crudRestaurantRepository.findById(restaurantId).get(); //TODO
         if (restaurant == null) {
@@ -36,7 +36,7 @@ public class DataJpaMenuRepository {
             return null;
         }
         // This code fixes issue with detached dishes when POST nem menu with dish ids
-        List<Integer> dishIds = menu.getDishes().stream().map(d -> d.getId()).collect(Collectors.toList());
+        List<Long> dishIds = menu.getDishes().stream().map(d -> d.getId()).collect(Collectors.toList());
         List<Dish> dishes = crudDishRepository.findAllById(dishIds);
         menu.clearDishes();
         dishes.forEach(d -> menu.addDish(d));
@@ -45,7 +45,7 @@ public class DataJpaMenuRepository {
         return crudMenuRepository.save(menu);
     }
     
-    public Menu getByRestaurantIdAndId(Integer restaurantId, Integer id) {
+    public Menu getByRestaurantIdAndId(Long restaurantId, Long id) {
         logger.info(String.format("Get menu by id=%s", id));
         return crudMenuRepository.getByRestaurantIdAndId(restaurantId, id);
     }
@@ -55,7 +55,7 @@ public class DataJpaMenuRepository {
         return crudMenuRepository.getByDate(date);
     }
     
-    public Menu getByRestaurantAndDate(Integer restaurantId, LocalDate date) {
+    public Menu getByRestaurantAndDate(Long restaurantId, LocalDate date) {
         logger.info(String.format("Get menu by restaurant id=%s and date=%s", restaurantId, date.toString()));
         return crudMenuRepository.getByRestaurantIdAndDate(restaurantId, date).orElse(null);
     }
@@ -66,7 +66,7 @@ public class DataJpaMenuRepository {
     }
     
     @Transactional
-    public boolean addDish(Integer menuId, Dish dish) {
+    public boolean addDish(Long menuId, Dish dish) {
         logger.info(String.format("Add dish=%s to menu with id=%s", dish, menuId));
         if (menuId == null) {
             logger.warn(String.format("Add dish =%s to menu with id=%s", dish.toString(), menuId));

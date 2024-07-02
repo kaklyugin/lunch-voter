@@ -49,7 +49,7 @@ public class Menu extends AbstractBaseEntity {
         super();
     }
     
-    public Menu(Integer id, Restaurant restaurant, LocalDate date) {
+    public Menu(Long id, Restaurant restaurant, LocalDate date) {
         this.id = id;
         this.restaurant = restaurant;
         this.date = date;
