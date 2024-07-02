@@ -1,5 +1,6 @@
 package ru.topjava.lunchvoter.jpa;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,11 +9,13 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import ru.topjava.lunchvoter.model.Dish;
 import ru.topjava.lunchvoter.repository.DataJpaDishRepository;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static ru.topjava.lunchvoter.DishTestData.getNewDishForGinza;
-import static ru.topjava.lunchvoter.DishTestData.getNewDishForGinzaWithDifferentPrice;
+import static ru.topjava.lunchvoter.DishTestData.*;
+import static ru.topjava.lunchvoter.MenuTestData.LUNCH_MENU_DATE;
 import static ru.topjava.lunchvoter.RestaurantTestData.RESTAURANT_GINZA_ID;
 
 @SpringBootTest
@@ -44,5 +47,15 @@ public class JpaDishTest {
         Dish newDishWithDifferentPrice = getNewDishForGinzaWithDifferentPrice();
         Dish createdDishWithDifferentPrice = dataJpaDishRepository.save(newDishWithDifferentPrice, RESTAURANT_GINZA_ID);
         assertNotNull(createdDishWithDifferentPrice);
+    }
+    
+    @Test
+    void getDishesByRestaurantIdAndDate() {
+        List actual = dataJpaDishRepository.getDishesByRestaurantIdAndDate(RESTAURANT_GINZA_ID, LUNCH_MENU_DATE);
+        List expected = List.of(
+                MOTHER_IN_LAW_BORSCH_WITH_SALO,
+                GREECE_SALAD,
+                CAESAR_SALAD_WITH_SHRIMPS);
+        Assertions.assertIterableEquals(expected, actual);
     }
 }

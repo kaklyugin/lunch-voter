@@ -1,4 +1,4 @@
-package ru.topjava.lunchvoter.web.restaurant;
+package ru.topjava.lunchvoter.web.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

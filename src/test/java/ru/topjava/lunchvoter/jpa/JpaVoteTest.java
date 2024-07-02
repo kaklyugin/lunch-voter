@@ -38,11 +38,11 @@ public class JpaVoteTest {
     
     @Test
     void update() {
-        Vote vote = dataJpaVoteRepository.getByUserAndDate(USER_PETER_ID, LUNCH_MENU_DATE);
+        Vote vote = dataJpaVoteRepository.getByDateAndUserId(LUNCH_MENU_DATE, USER_PETER_ID);
         Menu newMenu = dataJpaMenuRepository.getByRestaurantAndDate(RESTAURANT_MAMA_ITALIA_ID, LUNCH_MENU_DATE);
         vote.setMenu(newMenu);
         dataJpaVoteRepository.save(vote, USER_PETER_ID);
-        Vote updatedVote = dataJpaVoteRepository.getByUserAndDate(USER_PETER_ID, LUNCH_MENU_DATE);
+        Vote updatedVote = dataJpaVoteRepository.getByDateAndUserId(LUNCH_MENU_DATE, USER_PETER_ID);
         assertThat(updatedVote.getMenu().equals(newMenu));
     }
     

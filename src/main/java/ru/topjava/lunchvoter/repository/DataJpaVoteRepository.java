@@ -30,13 +30,19 @@ public class DataJpaVoteRepository {
             logger.warn(String.format("Failed to update vote=%s for user id=%s. Reason: userId in vote doesn't match userId", vote, userId));
             return null;
         }
+        // TODO How to obtain only menu id lazily: w\o dishes
+        if (crudMenuRepository.findById(vote.getMenu().getId()).get() == null) {
+            logger.warn(String.format("Failed to save vote=%s for user id=%s. Reason: cannot find menu with id ", vote, vote.getMenu().getId()));
+            return null;
+        }
         vote.setUser(crudUserRepository.getReferenceById(userId));
+        vote.setMenu(crudMenuRepository.getReferenceById(vote.getMenu().getId()));
         return crudVoteRepository.save(vote);
     }
     
     //TODO check if on service layer other user cannot get other's user vote
-    public Vote getByUserAndDate(Integer userId, LocalDate date) {
-        return crudVoteRepository.getVoteByUserIdAndDate(userId, date);
+    public Vote getByDateAndUserId(LocalDate date, Integer userId) {
+        return crudVoteRepository.getByDateAndUserId(date, userId);
     }
     
     public Vote get(Integer id, Integer userId) {

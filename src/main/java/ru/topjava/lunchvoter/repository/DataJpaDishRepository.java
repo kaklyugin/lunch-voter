@@ -3,10 +3,12 @@ package ru.topjava.lunchvoter.repository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 import ru.topjava.lunchvoter.model.Dish;
 import ru.topjava.lunchvoter.model.Restaurant;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -15,10 +17,12 @@ public class DataJpaDishRepository {
     
     private final CrudDishRepository crudDishRepository;
     private final CrudRestaurantRepository crudRestaurantRepository;
+    private final CrudMenuRepository crudMenuRepository;
     
-    public DataJpaDishRepository(CrudDishRepository crudDishRepository, CrudRestaurantRepository crudRestaurantRepository) {
+    public DataJpaDishRepository(CrudDishRepository crudDishRepository, CrudRestaurantRepository crudRestaurantRepository, CrudMenuRepository crudMenuRepository) {
         this.crudDishRepository = crudDishRepository;
         this.crudRestaurantRepository = crudRestaurantRepository;
+        this.crudMenuRepository = crudMenuRepository;
     }
     
     public List<Dish> getByRestaurantId(Integer restaurantId) {
@@ -42,5 +46,10 @@ public class DataJpaDishRepository {
         Restaurant restaurant = crudRestaurantRepository.getReferenceById(restaurantId);
         dish.setRestaurant(restaurant);
         return crudDishRepository.save(dish);
+    }
+    
+    public List<Dish> getDishesByRestaurantIdAndDate(@NonNull Integer restaurantId, @NonNull LocalDate date) {
+        logger.info(String.format("Get dishes by restaurantId=%s and date=%s", restaurantId, date));
+        return crudMenuRepository.getDishesByRestaurantIdAndDate(restaurantId, date);
     }
 }

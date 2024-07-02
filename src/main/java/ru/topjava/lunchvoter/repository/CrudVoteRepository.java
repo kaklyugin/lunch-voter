@@ -9,6 +9,6 @@ import java.time.LocalDate;
 @Transactional(readOnly = true)
 public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
     
-    Vote getVoteByUserIdAndDate(Integer userId, LocalDate date);
+    Vote getByDateAndUserId(LocalDate date, Integer userId);
     
 }

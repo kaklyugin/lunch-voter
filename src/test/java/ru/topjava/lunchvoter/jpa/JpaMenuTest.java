@@ -1,6 +1,5 @@
 package ru.topjava.lunchvoter.jpa;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +7,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import ru.topjava.lunchvoter.model.Dish;
 import ru.topjava.lunchvoter.model.Menu;
+import ru.topjava.lunchvoter.repository.DataJpaDishRepository;
 import ru.topjava.lunchvoter.repository.DataJpaMenuRepository;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static ru.topjava.lunchvoter.DishTestData.*;
+import static ru.topjava.lunchvoter.DishTestData.getNewDishForGinza;
 import static ru.topjava.lunchvoter.MenuTestData.*;
 import static ru.topjava.lunchvoter.RestaurantTestData.RESTAURANT_GINZA_ID;
 
@@ -24,6 +24,8 @@ import static ru.topjava.lunchvoter.RestaurantTestData.RESTAURANT_GINZA_ID;
 public class JpaMenuTest {
     @Autowired
     private DataJpaMenuRepository dataJpaLunchMenuRepository;
+    @Autowired
+    private DataJpaDishRepository dataJpaDishRepository;
     
     @Test
     void save() {
@@ -57,22 +59,14 @@ public class JpaMenuTest {
         assertTrue(dataJpaLunchMenuRepository.addDish(LUNCH_MENU_GINZA_ID, newDish));
     }
     
-    @Test
-    void getDishesByRestaurantIdAndDate() {
-        List actual = dataJpaLunchMenuRepository.getDishesByRestaurantIdAndDate(RESTAURANT_GINZA_ID, LUNCH_MENU_DATE);
-        List expected = List.of(
-                MOTHER_IN_LAW_BORSCH_WITH_SALO,
-                GREECE_SALAD,
-                CAESAR_SALAD_WITH_SHRIMPS);
-        Assertions.assertIterableEquals(expected, actual);
-    }
+
     
     @Test
     void addDishAndCheckBelonging() {
-        List<Dish> dishes = dataJpaLunchMenuRepository.getDishesByRestaurantIdAndDate(RESTAURANT_GINZA_ID, LUNCH_MENU_DATE);
+        List<Dish> dishes = dataJpaDishRepository.getDishesByRestaurantIdAndDate(RESTAURANT_GINZA_ID, LUNCH_MENU_DATE);
         final int dishesCountInMenu = dishes.size();
         assertTrue(dataJpaLunchMenuRepository.addDish(LUNCH_MENU_GINZA_ID, getNewDishForGinza()));
-        dishes = dataJpaLunchMenuRepository.getDishesByRestaurantIdAndDate(RESTAURANT_GINZA_ID, LUNCH_MENU_DATE);
+        dishes = dataJpaDishRepository.getDishesByRestaurantIdAndDate(RESTAURANT_GINZA_ID, LUNCH_MENU_DATE);
         assertThat(dishes.size()).isEqualTo(dishesCountInMenu + 1);
         Dish newDish = getNewDishForGinza();
         newDish.setId(dishes.get(1).getId());
