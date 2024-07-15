@@ -1,0 +1,42 @@
+package ru.topjava.lunchvoter.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.httpBasic(Customizer.withDefaults());
+        http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
+        return http.build();
+    }
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new MyCustomEncoder();
+    }
+    
+    class MyCustomEncoder implements PasswordEncoder {
+        
+        @Override
+        public String encode(CharSequence rawPassword) {
+            return rawPassword.toString();
+        }
+        
+        @Override
+        public boolean matches(CharSequence rawPassword, String encodedPassword) {
+            return rawPassword.toString().equals(encodedPassword);
+        }
+    }
+}
+

@@ -16,6 +16,11 @@ public class User extends AbstractNamedBaseEntity {
     @Size(max = 128)
     private String email;
     
+    @Column(name = "password", nullable = false)
+    @NotBlank
+    @Size(max = 128)
+    private String password;
+    
     @Enumerated(EnumType.STRING)
     //TODO Провести эксперимент - выключить FetchType.EAGER
     @ElementCollection(fetch = FetchType.EAGER)
@@ -32,6 +37,18 @@ public class User extends AbstractNamedBaseEntity {
         super(id, name);
         this.email = email;
         this.roles = roles;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public Set<Role> getRoles() {
+        return roles;
     }
     
     @Override
